@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Button from './components/Button';
+import MoviesPage from './pages/MoviesPage';
+import FlightsPage from './pages/FlightsPage';
 
 function App() {
+  let [displaySection, setDisplaySection] = useState("Movies");
+
+  const handleDisplay = (section) => setDisplaySection(section);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Sort Movies & Flights</h1>
+      <Button action={() => handleDisplay("Movies")} style="btn-section" text="Movies" />
+      <Button action={() => handleDisplay("Flights")} style="btn-section" text="Flights" />
+
+      {displaySection === "Movies" && <MoviesPage />}
+      {displaySection === "Flights" && <FlightsPage />}
     </div>
   );
 }
