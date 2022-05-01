@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from "../components/Dropdown";
-import { MyMovies } from "../data/MyMovies";
+// import { MyMovies } from "../data/MyMovies";
 import { sortBy } from '../functions/Sorting';
 
 export const MoviesPage = () => {
+  // state for the sorting option, best ratings by default
   let [selectorMovies, setSelectorMovies] = useState("ratings best");
+  let [MyMovies, setMyMovies] = useState([]);
 
+  // * comment lines 9 & 13-17 and uncomment line 3 if you don't want to use backend!
+  // fetching the array of objects with movie data from the backend
+  useEffect(() => {
+    fetch("http://localhost:5000/movies")
+    .then((response) => response.json())
+    .then((data) => setMyMovies(data))
+  }, []);
+
+  /* the HTML output from map will always be the same, no matter the sorting choice, just the order in which the individual cards are displayed changes */
   const mapMoviesOutput = (element, index) => ( 
     <div className="card" key={index}>
       <p>Name: <b>{element.name}</b></p>
